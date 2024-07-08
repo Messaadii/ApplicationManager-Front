@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faHome, faCog, faServer, faSearch, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCog, faServer, faSearch, faBan, faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav-bar',
@@ -23,9 +23,22 @@ export class NavBarComponent {
     this.router.navigate(['/virtualMachine/list']);
   }
 
+  gotToListAppUpdaterConfig() {
+    this.router.navigate(['/app-updater-config/list']);
+  }
+
+  gotToCreateAppUpdaterConfig() {
+    this.router.navigate(['/app-updater-config/save']);
+  }
+
+  goToUpdateResultHistory() {
+    this.router.navigate(['/app-updater-config/update-result-history']);
+  }
+
   faHome = faHome;
   faCog = faCog;
   faServer = faServer;
   faSearch = faSearch;
   faBan = faBan;
+  faClockRotateLeft = faClockRotateLeft;
 }

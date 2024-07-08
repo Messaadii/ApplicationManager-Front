@@ -10,4 +10,5 @@ export interface AppUpdaterConfig {
     applicationFiles: ApplicationFile[];
     toBeDeployed: ToBeDeployed;
     deployOn: DeployOn;
+    result: any;
 }

@@ -54,4 +54,8 @@ export class ListVirtualMachineComponent implements OnInit {
     this.router.navigate(['/virtualMachine/update', name]);
   }
 
+  addVm() {
+    this.router.navigate(['/virtualMachine/save']);
+  }
+
 }

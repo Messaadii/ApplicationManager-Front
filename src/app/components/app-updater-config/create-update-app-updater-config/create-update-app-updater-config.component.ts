@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Command } from '../../../model/Command';
@@ -30,10 +30,25 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
   editMessage: string = 'Edit';
   submit: boolean = false;
 
+  vms: string[] = [];
+
   setDeployOn(value: string) {
     this.currentConfig.toBeDeployed.type = value;
   }
 
+  setToBeDeployedVm(value: string) {
+    this.currentConfig.toBeDeployed.virtualMachine.name = value;
+  }
+
+  setDeployOnVm(value: string) {
+    console.log(value)
+    this.currentConfig.deployOn.virtualMachine.name = value;
+  }
+
+  console(word: string) {
+    console.log(word);
+    console.log(this.currentConfig)
+  }
 
   setNavWindow(value: string) {
     this.currentWindow = value;
@@ -66,7 +81,7 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
 
   submitMessage: string = 'Create';
 
-  constructor(private http: HttpClient, private router: ActivatedRoute) { }
+  constructor(private http: HttpClient, private router: ActivatedRoute, private navRouter: Router) { }
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -81,6 +96,10 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
         this.isReadOnly = true;
       }
       this.submitMessage = this.isReadOnly ? "Update" : "Create";
+
+      this.http.get('http://localhost:8080/virtual-machine/getAll').subscribe((vmdata: any) => {
+        this.vms = vmdata.map((vm: any) => vm.name);
+      });
     });
   }
 
@@ -100,33 +119,7 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.submit) {/*
-      const aucData = {
-        name: form.value.name,
-        beforeUpdateCommands: this.currentConfig.beforeUpdateCommands,
-        afterUpdateCommands: this.currentConfig.afterUpdateCommands,
-        applicationFiles: this.currentConfig.applicationFiles,
-        deployOn: {
-          type: "VirtualMachineResource",
-          earPath: form.value.deployOnEarPath,
-          tempPath: form.value.deployOnTempPath,
-          backupFolderPath: form.value.deployOnBackupFolderPath,
-          virtualMachine: {
-            name: form.value.deployOnVmName
-          }
-        },
-        toBeDeployed: {
-          type: form.value.ToBeDeployedType,
-          url: form.value.ToBeDeployedUrl,
-          earPath: form.value.ToBeDeployedEarPath,
-          regularExpression: form.value.ToBeDeployedRegularExpression,
-          virtualMachine: {
-            name: form.value.ToBeDeployedVmName
-          }
-        }
-
-      };*/
-
+    if (this.submit) {
       if (!this.isReadOnly) {
 
         this.apiUrl = 'http://localhost:8080/app-updater-config/save';
@@ -189,6 +182,7 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
         });
       }
     }
+    this.navRouter.navigate(['/app-updater-config/list']);
   }
 
   addCommand(commands: Command[], command: Command): void {

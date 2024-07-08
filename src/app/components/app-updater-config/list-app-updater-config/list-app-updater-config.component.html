@@ -1,5 +1,4 @@
-<div>
-    <h2>App Updater Configurations</h2>
+<div class="card">
   
     <table class="table table-custom">
       <thead>
@@ -23,15 +22,20 @@
           <td><button (click)="viewContent('To Be Deployed', config.toBeDeployed)" class="btn btn-secondary">View</button></td>
           <td><button (click)="viewContent('Deploy On', config.deployOn)" class="btn btn-secondary">View</button></td>
           <td class="tddb">
-            <button (click)="updateConfig(config.name)" class="btn btn-primary">Update</button>
-            <button (click)="deleteConfig(config.name)" class="btn btn-danger">Delete</button>
-            <button (click)="runConfig(config.name)" class="btn btn-primary">Run</button>
+            <button (click)="updateConfig(config.name)" class="btn-edit">Update</button>
+            <button (click)="deleteConfig(config.name)" class="btn-edit">Delete</button>
+            <button (click)="runConfig(config)" class="btn-edit">Run</button>
           </td>
-          <td><button (click)="viewContent('Deploy Result', result)" class="btn btn-secondary">View</button></td>
+          <td><button (click)="viewContent('Deploy Result', config.result)" class="btn btn-secondary">View</button></td>
         </tr>
       </tbody>
     </table>
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-spinner></mat-spinner>  <!-- Angular Material spinner -->
+    </div>
   
     <app-view-modal *ngIf="showModal" [title]="modalTitle" [content]="selectedContent" (close)="closeModal()"></app-view-modal>
+
+    <button (click)="addConfig()" class="btn-edit">Add</button>
   </div>
   

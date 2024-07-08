@@ -181,12 +181,20 @@ input[type="radio"]:checked+.radio-section-option:hover {
 }
 
 .plus-btn {
+    position: relative;
     background-color: var(--giants-orange-color);
-    padding: 0px 10px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: none;
     color: white;
-    font-size: 2rem;
+}
+
+.plus-btn fa-icon {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    font-size: 30px;
 }
 
 .align-right {
