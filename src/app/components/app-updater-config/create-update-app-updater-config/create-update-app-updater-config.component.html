@@ -31,7 +31,9 @@
         </tr>
         <tr>
           <td><input id="back-up-path" type="text" class="full-width" name="backupFolderPath" [(ngModel)]="currentConfig.deployOn.backupFolderPath" required #deployOnBackupFolderPath="ngModel"></td>
-          <td><input id="vm" type="text" class="full-width" name="virtualMachineName" [(ngModel)]="currentConfig.deployOn.virtualMachine.name" required #deployOnVmName="ngModel"></td>
+          <td> <select id="vm" name="select-deploy-on-vm" [(ngModel)]="currentConfig.deployOn.virtualMachine.name">
+            <option *ngFor="let name of vms">{{ name }}</option>
+          </select></td>
         </tr>
     </tbody>
     </table>
@@ -81,7 +83,10 @@
           </tr>
           <tr>
             <td><input id="path" type="text" class="full-width" name="toBeDeployedEarPath" [(ngModel)]="currentConfig.toBeDeployed.earPath" #ToBeDeployedEarPath="ngModel"></td>
-            <td><input id="vm-name" type="text" class="full-width" name="toBeDeployedVirtualMachineName" [(ngModel)]="currentConfig.toBeDeployed.virtualMachine.name" #ToBeDeployedVmName="ngModel"></td>
+            <td><select id="vm" name="select-deploy-on-vm" [(ngModel)]="currentConfig.toBeDeployed.virtualMachine.name">
+              <option *ngFor="let name of vms">{{ name }}</option>
+            </select>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -183,10 +188,12 @@
       </tbody>
   </table>
 </div>
-<p *ngIf="addMessage !== 'save' && currentConfig.afterUpdateCommands.length === 0" style="text-align: center;">No Commands</p>
-<button *ngIf="addMessage !== 'save'"
-[class.align-center] = "addMessage !== 'save' && currentConfig.afterUpdateCommands.length === 0"
-[class.align-right] = "currentConfig.afterUpdateCommands.length > 0" class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
+<p 
+  *ngIf="addMessage !== 'save' && currentConfig.afterUpdateCommands.length === 0" style="text-align: center;">No Commands</p>
+<button *ngIf="addMessage !== 'save'" [class.align-center] = "addMessage !== 'save' && currentConfig.afterUpdateCommands.length === 0" class="plus-btn"
+  [class.align-right] = "currentConfig.afterUpdateCommands.length > 0" (click)="addMessage = 'save'">
+  <fa-icon [icon]="faPlus"></fa-icon> 
+</button>
 
 </div>
 
@@ -240,6 +247,6 @@
 [class.align-right] = "currentConfig.applicationFiles.length > 0" class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
 
 </div>
+<button type="submit" class="btn-edit" (click)="submit = true">submit</button>
 </div>
-<button type="submit" class="btn btn-success" (click)="submit = true">submit</button>
 </form>

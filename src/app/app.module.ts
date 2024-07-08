@@ -14,6 +14,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ListAppUpdaterConfigComponent } from './components/app-updater-config/list-app-updater-config/list-app-updater-config.component';
 import { CreateUpdateAppUpdaterConfigComponent } from './components/app-updater-config/create-update-app-updater-config/create-update-app-updater-config.component';
 import { ViewModalComponent } from './components/app-updater-config/view-modal/view-modal.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UpdateResultHistoryComponent } from './components/app-updater-config/update-result-history/update-result-history.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { ViewModalComponent } from './components/app-updater-config/view-modal/v
     NavBarComponent,
     ListAppUpdaterConfigComponent,
     CreateUpdateAppUpdaterConfigComponent,
-    ViewModalComponent
+    ViewModalComponent,
+    UpdateResultHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -32,11 +37,13 @@ import { ViewModalComponent } from './components/app-updater-config/view-modal/v
     BrowserAnimationsModule,
     IgxNavbarModule,
     IgxIconModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

@@ -10,7 +10,7 @@ describe('ListVirtualMachineComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ListVirtualMachineComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ListVirtualMachineComponent);
     component = fixture.componentInstance;

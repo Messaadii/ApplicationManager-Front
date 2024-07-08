@@ -26,11 +26,11 @@ export class ViewModalComponent implements OnInit {
     if (this.isObject(content)) {
       return Object.keys(content).map(key => {
         const value = content[key];
-        if (value !== null && value !== undefined && key !== 'newValue') {
+        if (value !== null && value !== undefined && key !== 'newValue' && key !== 'appUpdaterConfig') {
           if (this.isObject(value)) {
             return `<div><strong>${key}:</strong> ${this.formatContent(value)}</div>`;
           } else {
-            return `<div><strong>${key}:</strong> ${value}</div>`;
+            return `<div><strong>${key}:</strong> ${this.replaceSpecialChars(value)}</div>`;
           }
         }
         return '';
@@ -38,7 +38,16 @@ export class ViewModalComponent implements OnInit {
     } else if (Array.isArray(content)) {
       return `<ul>${content.map(item => `<li>${this.formatContent(item)}</li>`).join('')}</ul>`;
     } else {
-      return content;
+      return this.replaceSpecialChars(content);
     }
+  }
+
+  replaceSpecialChars(value: string): string {
+    if (typeof value !== 'string') {
+      return value;
+    }
+    return value
+      .replace(/\n/g, '<br>')
+      .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
   }
 }
