@@ -1,0 +1,30 @@
+
+<div class="container">
+  <h2>CRUD Virtual Machine</h2>
+  
+  <table class="table table-custom">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>User</th>
+        <th>Host</th>
+        <th>Password</th>
+        <th>Port</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vm of vms">
+        <td>{{vm.name}}</td>
+        <td>{{vm.user}}</td>
+        <td>{{vm.host}}</td>
+        <td>*****</td>
+        <td>{{vm.port}}</td>
+        <td class="tddb">
+          <button (click)="updateVm(vm.name)" class="btn btn-primary">Update</button>
+          <button (click)="deleteVm(vm)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

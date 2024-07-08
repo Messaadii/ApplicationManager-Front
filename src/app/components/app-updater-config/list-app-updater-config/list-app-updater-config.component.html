@@ -1,0 +1,37 @@
+<div>
+    <h2>App Updater Configurations</h2>
+  
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Before Update Command</th>
+          <th>After Update Command</th>
+          <th>Application Files</th>
+          <th>To Be Deployed</th>
+          <th>Deploy On</th>
+          <th>Actions</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let config of appUpdaterConfigList">
+          <td>{{config.name}}</td>
+          <td><button (click)="viewContent('Before Update Commands', config.beforeUpdateCommands)" class="btn btn-secondary">View</button></td>
+          <td><button (click)="viewContent('After Update Commands', config.afterUpdateCommands)" class="btn btn-secondary">View</button></td>
+          <td><button (click)="viewContent('Application Files', config.applicationFiles)" class="btn btn-secondary">View</button></td>
+          <td><button (click)="viewContent('To Be Deployed', config.toBeDeployed)" class="btn btn-secondary">View</button></td>
+          <td><button (click)="viewContent('Deploy On', config.deployOn)" class="btn btn-secondary">View</button></td>
+          <td class="tddb">
+            <button (click)="updateConfig(config.name)" class="btn btn-primary">Update</button>
+            <button (click)="deleteConfig(config.name)" class="btn btn-danger">Delete</button>
+            <button (click)="runConfig(config.name)" class="btn btn-primary">Run</button>
+          </td>
+          <td><button (click)="viewContent('Deploy Result', result)" class="btn btn-secondary">View</button></td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <app-view-modal *ngIf="showModal" [title]="modalTitle" [content]="selectedContent" (close)="closeModal()"></app-view-modal>
+  </div>
+  

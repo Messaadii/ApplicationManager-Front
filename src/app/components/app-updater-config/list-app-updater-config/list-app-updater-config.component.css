@@ -1,0 +1,12 @@
+.tddb {
+    display: flex;
+    gap: 10px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}

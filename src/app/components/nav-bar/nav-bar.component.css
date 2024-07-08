@@ -1,0 +1,15 @@
+.nav-bar {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.nav-bar ul li {
+    padding: 10px 25px;
+    display: inline;
+}
+
+.nav-bar ul {
+    width: fit-content;
+    margin: auto;
+}

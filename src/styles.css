@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+.light-mode {
+    --giants-orange-color: #ff521b;
+    --vanilla-color: #f2f3ae;
+    --oxford-bleu: #020122;
+    --sandy-brown: #FC9E4F;
+    --background-color: white;
+}
+
+.dark-mode {
+    --giants-orange-color: #ff521b;
+    --vanilla-color: #f2f3ae;
+    --oxford-bleu: #020122;
+    --sandy-brown: #FC9E4F;
+    --background-color: black;
+}
+
+.app-body {
+    height: 100%;
+    background-color: var(--background-color);
+}
+
+html,
+body {
+    height: 100vh;
+}
+
+.container {
+    min-height: 100vh;
+}
