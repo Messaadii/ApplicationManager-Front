@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VirtualMachine } from '../../../model/virtualMachine';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-list-virtual-machine',
@@ -25,14 +26,14 @@ export class ListVirtualMachineComponent implements OnInit {
   }
 
   initiateOnInit() {
-    this.http.get('http://localhost:8080/virtual-machine/getAll').subscribe((data: any) => {
+    this.http.get(`${environment.backendApp}/virtual-machine/getAll`).subscribe((data: any) => {
       this.vms = data;
     });
   }
 
 
   deleteVm(vm: VirtualMachine) {
-    this.apiUrl = 'http://localhost:8080/virtual-machine/delete/' + vm.name;
+    this.apiUrl = `${environment.backendApp}/virtual-machine/delete/` + vm.name;
 
     this.http.delete(this.apiUrl).subscribe({
       next: (response) => {

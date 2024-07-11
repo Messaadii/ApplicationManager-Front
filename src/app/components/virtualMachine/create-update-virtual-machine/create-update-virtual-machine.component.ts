@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VirtualMachine } from '../../../model/virtualMachine';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-create-update-virtual-machine',
@@ -24,7 +25,7 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
       this.vmName = params['name'] || "";
     });
     if (this.vmName !== "") {
-      this.apiUrl = 'http://localhost:8080/virtual-machine/get/' + this.vmName;
+      this.apiUrl = `${environment.backendApp}/virtual-machine/get/` + this.vmName;
 
       this.http.get(this.apiUrl).subscribe((data: any) => {
         this.currentVM = data;
@@ -47,7 +48,7 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
 
       if (!this.isReadOnly) {
 
-        this.apiUrl = 'http://localhost:8080/virtual-machine/save';
+        this.apiUrl = `${environment.backendApp}/virtual-machine/save`;
 
         this.http.post(this.apiUrl, vmData).subscribe({
           next: (response) => {
@@ -64,7 +65,7 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
         });
 
       } else {
-        this.apiUrl = 'http://localhost:8080/virtual-machine/update';
+        this.apiUrl = `${environment.backendApp}/virtual-machine/update`;
 
         this.http.put(this.apiUrl, vmData).subscribe({
           next: (response) => {

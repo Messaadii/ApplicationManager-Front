@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Result } from '../../../model/Result';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-update-result-history',
@@ -14,7 +15,7 @@ export class UpdateResultHistoryComponent implements OnInit {
   results: Result[] = [];
 
   ngOnInit(): void {
-    this.http.get('http://localhost:8080/update-result/getAll').subscribe((data: any) => {
+    this.http.get(`${environment.backendApp}/update-result/getAll`).subscribe((data: any) => {
       this.results = data;
       console.log(this.results);
     });

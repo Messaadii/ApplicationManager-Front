@@ -47,7 +47,6 @@ body {
     margin: 30px;
     padding: 30px;
     overflow: hidden;
-    margin-top: 70px;
 }
 
 
@@ -73,4 +72,45 @@ body {
 
 .table-custom th {
     background-color: #f2f3ae82;
+}
+
+label,
+input,
+select {
+    cursor: pointer;
+}
+
+input, select {
+    border: 1px solid var(--oxford-bleu);
+    color: var(--oxford-bleu);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.full-width tr td {
+    padding: 0px 10px;
+}
+
+tr td label{
+    padding-top: 15px;
+}
+
+.align-right {
+    position: relative;
+}
+
+.align-right button{
+    float: right;
+}
+
+table{
+    width: 100%;
+}
+
+table tr td{
+    padding: 0px 15px;
 }
