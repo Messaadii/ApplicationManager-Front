@@ -66,6 +66,7 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
       url: '',
       earPath: '',
       regularExpression: '',
+      suffix:'',
       virtualMachine: {
         name: ''
       }

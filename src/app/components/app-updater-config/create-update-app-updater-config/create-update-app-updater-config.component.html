@@ -52,13 +52,16 @@
       <div class="fieldset">
         <div class="title">To Be Deployed</div>
         <div class="center">
-          <input id="url-based" type="radio" name="to-be-deployed" [checked]="currentConfig.toBeDeployed.type == 'URLBased'">
+          <input id="url-based" type="radio" name="to-be-deployed"
+            [checked]="currentConfig.toBeDeployed.type == 'URLBased'">
           <label for="url-based" class="left-rounded radio-section-option" (click)="setDeployOn('URLBased')">URL
             Based</label>
-          <input id="regex-url-based" type="radio" name="to-be-deployed" [checked]="currentConfig.toBeDeployed.type == 'RegularExpressionBasedURL'">
+          <input id="regex-url-based" type="radio" name="to-be-deployed"
+            [checked]="currentConfig.toBeDeployed.type == 'RegularExpressionBasedURL'">
           <label for="regex-url-based" class="radio-section-option"
             (click)="setDeployOn('RegularExpressionBasedURL')">Regular Expression URL Based</label>
-          <input id="vm-ressource" type="radio" name="to-be-deployed" [checked]="currentConfig.toBeDeployed.type == 'VirtualMachineResource'">
+          <input id="vm-ressource" type="radio" name="to-be-deployed"
+            [checked]="currentConfig.toBeDeployed.type == 'VirtualMachineResource'">
           <label for="vm-ressource" class="right-rounded radio-section-option"
             (click)="setDeployOn('VirtualMachineResource')">Virtual Machine Ressource</label>
         </div>
@@ -87,6 +90,14 @@
                     [(ngModel)]="currentConfig.toBeDeployed.url" #ToBeDeployedUrl="ngModel"></td>
                 <td><input id="regex" type="text" class="full-width" name="toBeDeployedRegularExpression"
                     [(ngModel)]="currentConfig.toBeDeployed.regularExpression" #ToBeDeployedRegularExpression="ngModel">
+                </td>
+              </tr>
+              <tr>
+                <td><label for="suffix">URL Suffix</label></td>
+              </tr>
+              <tr>
+                <td><input id="suffix" type="text" class="full-width" name="toBeDeployedsuffix"
+                    [(ngModel)]="currentConfig.toBeDeployed.suffix" #toBeDeployedsuffix="ngModel">
                 </td>
               </tr>
             </tbody>
