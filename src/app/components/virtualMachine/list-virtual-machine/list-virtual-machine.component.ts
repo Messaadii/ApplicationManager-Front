@@ -4,6 +4,7 @@ import { VirtualMachine } from '../../../model/virtualMachine';
 import { Router } from '@angular/router';
 import { VmserviceService } from '../../../services/vmservice.service';
 import { Command } from '../../../model/Command';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-list-virtual-machine',
@@ -22,21 +23,21 @@ export class ListVirtualMachineComponent implements OnInit {
   commands: Command[] | undefined;
   route: any;
 
-  constructor(private http: HttpClient, private router: Router,private apiService:VmserviceService) { }
+  constructor(private http: HttpClient, private router: Router, private apiService: VmserviceService) { }
 
   ngOnInit(): void {
     this.initiateOnInit();
   }
 
   initiateOnInit() {
-    this.http.get('http://localhost:8080/virtual-machine/getAll').subscribe((data: any) => {
+    this.http.get(`${environment.backendApp}/virtual-machine/getAll`).subscribe((data: any) => {
       this.vms = data;
     });
   }
 
 
   deleteVm(vm: VirtualMachine) {
-    this.apiUrl = 'http://localhost:8080/virtual-machine/delete/' + vm.name;
+    this.apiUrl = `${environment.backendApp}/virtual-machine/delete/` + vm.name;
 
     this.http.delete(this.apiUrl).subscribe({
       next: (response) => {
@@ -60,9 +61,12 @@ export class ListVirtualMachineComponent implements OnInit {
   listActiveJavaProcesses(name: string) {
     this.router.navigate(['/virtualMachine/list-active-java-processes', name]);
   }
-  loadCommands(name: string){
+  loadCommands(name: string) {
     this.router.navigate(['/virtualMachine/commands', name]);
-
   }
-  
+
+  addVm() {
+    this.router.navigate(['/virtualMachine/save']);
+  }
+
 }

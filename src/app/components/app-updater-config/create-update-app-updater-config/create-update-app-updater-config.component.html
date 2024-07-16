@@ -1,121 +1,152 @@
 <form (ngSubmit)="onSubmit()" #aucForm="ngForm">
-<div class="card">
-  <div class="card-nav-bar">
-    <input id="main-config" type="radio" class="nav-bar-input" name="updater-config" checked>
-    <label for="main-config" class="left-rounded-config nav-bar-option" (click)="setNavWindow('main-config')">Main Config</label>
-    <input id="before-update-cmd" type="radio" class="nav-bar-input" name="updater-config">
-    <label for="before-update-cmd" class="nav-bar-option" (click)="setNavWindow('before-update-cmd')">Before Update Commands</label>
-    <input id="after-update-cmd" type="radio" class="nav-bar-input" name="updater-config">
-    <label for="after-update-cmd" class="nav-bar-option" (click)="setNavWindow('after-update-cmd')">After Update Commands</label>
-    <input id="application-file" type="radio" class="nav-bar-input" name="updater-config">
-    <label for="application-file" class="nav-bar-option" (click)="setNavWindow('application-file')">Application Files</label>
-  </div>
-  <div *ngIf="currentWindow ==='main-config'" class="card-window">
-  <label for="name">Name</label>
-  <input type="text" id="name" name="name" [readonly]="isReadOnly" [(ngModel)]="currentConfig.name" required #name="ngModel">
-  <div class="fieldset">
-    <div class="title">Deploy On</div>
-    <table class="full-width">
-      <tbody>
-        <tr>
-          <td><label for="ear-path">Ear Path</label></td>
-          <td><label for="temp-path">Temp Path</label></td>
-        </tr>
-        <tr>
-          <td><input id="ear-path" type="text" class="full-width" name="earPath" [(ngModel)]="currentConfig.deployOn.earPath" required #deployOnEarPath="ngModel"></td>
-          <td><input id="temp-path" type="text" class="full-width" name="tempPath" [(ngModel)]="currentConfig.deployOn.tempPath" required #deployOnTempPath="ngModel"></td>
-        </tr>
-        <tr>
-          <td><label for="back-up-path">Back Up Path</label></td>
-          <td><label for="vm">Virtual Machine</label></td>
-        </tr>
-        <tr>
-          <td><input id="back-up-path" type="text" class="full-width" name="backupFolderPath" [(ngModel)]="currentConfig.deployOn.backupFolderPath" required #deployOnBackupFolderPath="ngModel"></td>
-          <td><input id="vm" type="text" class="full-width" name="virtualMachineName" [(ngModel)]="currentConfig.deployOn.virtualMachine.name" required #deployOnVmName="ngModel"></td>
-        </tr>
-    </tbody>
-    </table>
-  </div>
-  <div class="fieldset">
-    <div class="title">To Be Deployed</div>
-    <div class="center">
-      <input id="url-based" type="radio" name="to-be-deployed" [(ngModel)]="currentConfig.toBeDeployed.type" #ToBeDeployedType="ngModel" checked>
-      <label for="url-based" class="left-rounded radio-section-option" (click)="setDeployOn('URLBased')">URL Based</label>
-      <input id="regex-url-based" type="radio" name="to-be-deployed" [(ngModel)]="currentConfig.toBeDeployed.type" #ToBeDeployedType="ngModel">
-      <label for="regex-url-based" class="radio-section-option" (click)="setDeployOn('RegularExpressionBasedURL')">Regular Expression URL Based</label>
-      <input id="vm-ressource" type="radio" name="to-be-deployed" [(ngModel)]="currentConfig.toBeDeployed.type" #ToBeDeployedType="ngModel">
-      <label for="vm-ressource" class="right-rounded radio-section-option" (click)="setDeployOn('VirtualMachineResource')">Virtual Machine Ressource</label>
+  <div class="card">
+    <div class="card-nav-bar">
+      <input id="main-config" type="radio" class="nav-bar-input" name="updater-config" checked>
+      <label for="main-config" class="left-rounded-config nav-bar-option" (click)="setNavWindow('main-config')">Main
+        Config</label>
+      <input id="before-update-cmd" type="radio" class="nav-bar-input" name="updater-config">
+      <label for="before-update-cmd" class="nav-bar-option" (click)="setNavWindow('before-update-cmd')">Before Update
+        Commands</label>
+      <input id="after-update-cmd" type="radio" class="nav-bar-input" name="updater-config">
+      <label for="after-update-cmd" class="nav-bar-option" (click)="setNavWindow('after-update-cmd')">After Update
+        Commands</label>
+      <input id="application-file" type="radio" class="nav-bar-input" name="updater-config">
+      <label for="application-file" class="nav-bar-option" (click)="setNavWindow('application-file')">Application
+        Files</label>
     </div>
-    <div *ngIf="currentConfig.toBeDeployed.type === 'URLBased'">
-      <table class="full-width">
-        <tbody>
-          <tr>
-            <td><label for="url">URL</label></td>
-          </tr>
-          <tr>
-            <td><input id="url" type="text" class="full-width" name="toBeDeployedUrl"  [(ngModel)]="currentConfig.toBeDeployed.url" #ToBeDeployedUrl="ngModel"></td>
-          </tr>
-        </tbody>
-      </table>
+    <div *ngIf="currentWindow ==='main-config'" class="card-window">
+      <label for="name">Name</label><br>
+      <input type="text" class="full-width" id="name" name="name" [readonly]="isReadOnly"
+        [(ngModel)]="currentConfig.name" required #name="ngModel">
+      <div class="fieldset">
+        <div class="title">Deploy On</div>
+        <table class="full-width">
+          <tbody>
+            <tr>
+              <td><label for="ear-path">Ear Path</label></td>
+              <td><label for="temp-path">Temp Path</label></td>
+            </tr>
+            <tr>
+              <td><input id="ear-path" type="text" class="full-width" name="earPath"
+                  [(ngModel)]="currentConfig.deployOn.earPath" required #deployOnEarPath="ngModel"></td>
+              <td><input id="temp-path" type="text" class="full-width" name="tempPath"
+                  [(ngModel)]="currentConfig.deployOn.tempPath" required #deployOnTempPath="ngModel"></td>
+            </tr>
+            <tr>
+              <td><label for="back-up-path">Back Up Path</label></td>
+              <td><label for="vm">Virtual Machine</label></td>
+            </tr>
+            <tr>
+              <td><input id="back-up-path" type="text" class="full-width" name="backupFolderPath"
+                  [(ngModel)]="currentConfig.deployOn.backupFolderPath" required #deployOnBackupFolderPath="ngModel">
+              </td>
+              <td> <select id="vm" class="full-width" name="select-deploy-on-vm"
+                  [(ngModel)]="currentConfig.deployOn.virtualMachine.name">
+                  <option></option>
+                  <option *ngFor="let name of vms">{{ name }}</option>
+                </select></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fieldset">
+        <div class="title">To Be Deployed</div>
+        <div class="center">
+          <input id="url-based" type="radio" name="to-be-deployed" [checked]="currentConfig.toBeDeployed.type == 'URLBased'">
+          <label for="url-based" class="left-rounded radio-section-option" (click)="setDeployOn('URLBased')">URL
+            Based</label>
+          <input id="regex-url-based" type="radio" name="to-be-deployed" [checked]="currentConfig.toBeDeployed.type == 'RegularExpressionBasedURL'">
+          <label for="regex-url-based" class="radio-section-option"
+            (click)="setDeployOn('RegularExpressionBasedURL')">Regular Expression URL Based</label>
+          <input id="vm-ressource" type="radio" name="to-be-deployed" [checked]="currentConfig.toBeDeployed.type == 'VirtualMachineResource'">
+          <label for="vm-ressource" class="right-rounded radio-section-option"
+            (click)="setDeployOn('VirtualMachineResource')">Virtual Machine Ressource</label>
+        </div>
+        <div *ngIf="currentConfig.toBeDeployed.type === 'URLBased'">
+          <table class="full-width">
+            <tbody>
+              <tr>
+                <td><label for="url">URL</label></td>
+              </tr>
+              <tr>
+                <td><input id="url" type="text" class="full-width" name="toBeDeployedUrl"
+                    [(ngModel)]="currentConfig.toBeDeployed.url" #ToBeDeployedUrl="ngModel"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="currentConfig.toBeDeployed.type === 'RegularExpressionBasedURL'">
+          <table class="full-width">
+            <tbody>
+              <tr>
+                <td><label for="url">URL</label></td>
+                <td><label for="regex">Regular Expression</label></td>
+              </tr>
+              <tr>
+                <td><input id="url" type="text" class="full-width" name="toBeDeployedUrl"
+                    [(ngModel)]="currentConfig.toBeDeployed.url" #ToBeDeployedUrl="ngModel"></td>
+                <td><input id="regex" type="text" class="full-width" name="toBeDeployedRegularExpression"
+                    [(ngModel)]="currentConfig.toBeDeployed.regularExpression" #ToBeDeployedRegularExpression="ngModel">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="currentConfig.toBeDeployed.type === 'VirtualMachineResource'">
+          <table class="full-width">
+            <tbody>
+              <tr>
+                <td><label for="path">Path</label></td>
+                <td><label for="vm-name">Virtual Machine Name</label></td>
+              </tr>
+              <tr>
+                <td><input id="path" type="text" class="full-width" name="toBeDeployedEarPath"
+                    [(ngModel)]="currentConfig.toBeDeployed.earPath" #ToBeDeployedEarPath="ngModel"></td>
+                <td><select id="vm" name="select-deploy-on-vm"
+                    [(ngModel)]="currentConfig.toBeDeployed.virtualMachine.name">
+                    <option *ngFor="let name of vms">{{ name }}</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="align-right">
+        <button type="submit" class="btn-edit" (click)="submit = true">submit</button>
+      </div>
     </div>
-    <div *ngIf="currentConfig.toBeDeployed.type === 'RegularExpressionBasedURL'">
-      <table class="full-width">
-        <tbody>
-          <tr>
-            <td><label for="url">URL</label></td>
-            <td><label for="regex">Regular Expression</label></td>
-          </tr>
-          <tr>
-            <td><input id="url" type="text" class="full-width" name="toBeDeployedUrl" [(ngModel)]="currentConfig.toBeDeployed.url" #ToBeDeployedUrl="ngModel"></td>
-            <td><input id="regex" type="text" class="full-width" name="toBeDeployedRegularExpression" [(ngModel)]="currentConfig.toBeDeployed.regularExpression" #ToBeDeployedRegularExpression="ngModel"></td>
-          </tr>
-      </tbody>
-    </table>
-    </div>
-    <div *ngIf="currentConfig.toBeDeployed.type === 'VirtualMachineResource'">
-      <table class="full-width">
-        <tbody>
-          <tr>
-            <td><label for="path">Path</label></td>
-            <td><label for="vm-name">Virtual Machine Name</label></td>
-          </tr>
-          <tr>
-            <td><input id="path" type="text" class="full-width" name="toBeDeployedEarPath" [(ngModel)]="currentConfig.toBeDeployed.earPath" #ToBeDeployedEarPath="ngModel"></td>
-            <td><input id="vm-name" type="text" class="full-width" name="toBeDeployedVirtualMachineName" [(ngModel)]="currentConfig.toBeDeployed.virtualMachine.name" #ToBeDeployedVmName="ngModel"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
-<!-- Before Update Commands -->
+    <!-- Before Update Commands -->
 
-<div *ngIf="currentWindow === 'before-update-cmd'" class="card-window">  
-      <table class="table" *ngIf="currentConfig.beforeUpdateCommands.length > 0" >
+    <div *ngIf="currentWindow === 'before-update-cmd'" class="card-window">
+      <table class="table" *ngIf="currentConfig.beforeUpdateCommands.length > 0">
         <tbody>
           <tr>
             <th class="half-width">Command</th>
             <th class="quarter-width">Sudo</th>
             <th class="quarter-width">Actions</th>
           </tr>
-            <ng-container *ngFor="let bucmd of currentConfig.beforeUpdateCommands; let i = index;">
-          <tr  *ngIf="!bucmd.isEditMode">
-            <td class="half-width">{{bucmd.command}}</td>
-            <td class="quarter-width">{{bucmd.runAsRoot}}</td>
-            <td class="quarter-width"><button class="btn-edit" (click)="bucmd.isEditMode = true">Edit</button><button class="btn-delete" (click)="currentConfig.beforeUpdateCommands.splice(i,1)">Delete</button></td>
-          </tr>
+          <ng-container *ngFor="let bucmd of currentConfig.beforeUpdateCommands; let i = index;">
+            <tr *ngIf="!bucmd.isEditMode">
+              <td class="half-width">{{bucmd.command}}</td>
+              <td class="quarter-width">{{bucmd.runAsRoot}}</td>
+              <td class="quarter-width"><button class="btn-edit" (click)="bucmd.isEditMode = true">Edit</button><button
+                  class="btn-delete" (click)="currentConfig.beforeUpdateCommands.splice(i,1)">Delete</button></td>
+            </tr>
 
             <tr *ngIf="bucmd.isEditMode">
-              <td class="half-width"><input id="command" type="text" class="full-width" name="bucmdCommand" [(ngModel)]="bucmd.command" placeholder="add new command.."></td>
-              <td class="quarter-width"><input id="sudo" type="checkbox" name="bucmdRunAsRoot" [(ngModel)]="bucmd.runAsRoot"></td>
+              <td class="half-width"><input id="command" type="text" class="full-width" name="bucmdCommand"
+                  [(ngModel)]="bucmd.command" placeholder="add new command.."></td>
+              <td class="quarter-width"><input id="sudo" type="checkbox" name="bucmdRunAsRoot"
+                  [(ngModel)]="bucmd.runAsRoot"></td>
               <td class="quarter-width"><button (click)="bucmd.isEditMode = false" class="btn-edit">save</button></td>
             </tr>
-           
-         </ng-container>
+
+          </ng-container>
         </tbody>
       </table>
-     
+
       <div *ngIf="addMessage === 'save'" class="fieldset">
         <div class="title">Add New Command</div>
         <table class="full-width">
@@ -126,120 +157,134 @@
               <td></td>
             </tr>
             <tr>
-              <td><input id="command" type="text" class="full-width" name="bucmdCommand" [(ngModel)]="cmd.command" placeholder="add new command.."></td>
+              <td><input id="command" type="text" class="full-width" name="bucmdCommand" [(ngModel)]="cmd.command"
+                  placeholder="add new command.."></td>
               <td><input id="sudo" type="checkbox" name="bucmdRunAsRoot" [(ngModel)]="cmd.runAsRoot"></td>
-              <td><button class="btn-edit" (click)="addCommand(currentConfig.beforeUpdateCommands,cmd)">Save</button></td>
+              <td><button class="btn-edit" (click)="addCommand(currentConfig.beforeUpdateCommands,cmd)">Save</button>
+              </td>
             </tr>
           </tbody>
-      </table>
+        </table>
+      </div>
+      <p *ngIf="addMessage !== 'save' && currentConfig.beforeUpdateCommands.length === 0" style="text-align: center;">No
+        Commands</p>
+      <div *ngIf="addMessage !== 'save'" [class.align-right]="currentConfig.beforeUpdateCommands.length > 0"
+        [class.align-center]="addMessage !== 'save' && currentConfig.beforeUpdateCommands.length === 0">
+        <button class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
+      </div>
     </div>
-    <p *ngIf="addMessage !== 'save' && currentConfig.beforeUpdateCommands.length === 0" style="text-align: center;">No Commands</p>
-    <button *ngIf="addMessage !== 'save'"
-    [class.align-center] = "addMessage !== 'save' && currentConfig.beforeUpdateCommands.length === 0"
-    [class.align-right] = "currentConfig.beforeUpdateCommands.length > 0" class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
-</div>
 
-<!-- After Update Commands -->
+    <!-- After Update Commands -->
 
-<div *ngIf="currentWindow === 'after-update-cmd'" class="card-window">
-<table class="table" *ngIf="currentConfig.afterUpdateCommands.length > 0">
-    <tbody>
-      <tr>
-        <th class="half-width">Command</th>
-        <th class="quarter-width">Sudo</th>
-        <th class="quarter-width">Actions</th>
-      </tr>
-        <ng-container *ngFor="let aucmd of currentConfig.afterUpdateCommands; let i = index;">
-      <tr  *ngIf="!aucmd.isEditMode">
-        <td class="half-width">{{aucmd.command}}</td>
-        <td class="quarter-width">{{aucmd.runAsRoot}}</td>
-        <td class="quarter-width"><button class="btn-edit" (click)="aucmd.isEditMode = true">Edit</button><button class="btn-delete" (click)="currentConfig.afterUpdateCommands.splice(i,1)">Delete</button></td>
-      </tr>
+    <div *ngIf="currentWindow === 'after-update-cmd'" class="card-window">
+      <table class="table" *ngIf="currentConfig.afterUpdateCommands.length > 0">
+        <tbody>
+          <tr>
+            <th class="half-width">Command</th>
+            <th class="quarter-width">Sudo</th>
+            <th class="quarter-width">Actions</th>
+          </tr>
+          <ng-container *ngFor="let aucmd of currentConfig.afterUpdateCommands; let i = index;">
+            <tr *ngIf="!aucmd.isEditMode">
+              <td class="half-width">{{aucmd.command}}</td>
+              <td class="quarter-width">{{aucmd.runAsRoot}}</td>
+              <td class="quarter-width"><button class="btn-edit" (click)="aucmd.isEditMode = true">Edit</button><button
+                  class="btn-delete" (click)="currentConfig.afterUpdateCommands.splice(i,1)">Delete</button></td>
+            </tr>
 
-        <tr *ngIf="aucmd.isEditMode">
-          <td class="half-width"><input id="command" type="text" class="full-width" name="aucmdCommand" [(ngModel)]="aucmd.command" placeholder="add new command.."></td>
-          <td class="quarter-width"><input id="sudo" type="checkbox" name="aucmdRunAsRoot" [(ngModel)]="aucmd.runAsRoot"></td>
-          <td class="quarter-width"><button (click)="aucmd.isEditMode = false" class="btn-edit">save</button></td>
-        </tr>
-       
-     </ng-container>
-    </tbody>
-  </table>
- 
-  <div *ngIf="addMessage === 'save'" class="fieldset">
-    <div class="title">Add New Command</div>
-    <table class="full-width">
-      <tbody>
-        <tr>
-          <td><label for="command">Command</label></td>
-          <td><label for="sudo">Sudo</label></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><input id="command" type="text" class="full-width" name="aucmdCommand"  [(ngModel)]="cmd.command" placeholder="add new command.."></td>
-          <td><input id="sudo" type="checkbox" name="aucmdRunAsRoot" [(ngModel)]="cmd.runAsRoot"></td>
-          <td><button class="btn-edit" (click)="addCommand(currentConfig.afterUpdateCommands,cmd)">Save</button></td>
-        </tr>
-      </tbody>
-  </table>
-</div>
-<p *ngIf="addMessage !== 'save' && currentConfig.afterUpdateCommands.length === 0" style="text-align: center;">No Commands</p>
-<button *ngIf="addMessage !== 'save'"
-[class.align-center] = "addMessage !== 'save' && currentConfig.afterUpdateCommands.length === 0"
-[class.align-right] = "currentConfig.afterUpdateCommands.length > 0" class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
+            <tr *ngIf="aucmd.isEditMode">
+              <td class="half-width"><input id="command" type="text" class="full-width" name="aucmdCommand"
+                  [(ngModel)]="aucmd.command" placeholder="add new command.."></td>
+              <td class="quarter-width"><input id="sudo" type="checkbox" name="aucmdRunAsRoot"
+                  [(ngModel)]="aucmd.runAsRoot"></td>
+              <td class="quarter-width"><button (click)="aucmd.isEditMode = false" class="btn-edit">save</button></td>
+            </tr>
 
-</div>
+          </ng-container>
+        </tbody>
+      </table>
 
-<!-- Application Files -->
-<div *ngIf="currentWindow === 'application-file'" class="card-window">
+      <div *ngIf="addMessage === 'save'" class="fieldset">
+        <div class="title">Add New Command</div>
+        <table class="full-width">
+          <tbody>
+            <tr>
+              <td><label for="command">Command</label></td>
+              <td><label for="sudo">Sudo</label></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input id="command" type="text" class="full-width" name="aucmdCommand" [(ngModel)]="cmd.command"
+                  placeholder="add new command.."></td>
+              <td><input id="sudo" type="checkbox" name="aucmdRunAsRoot" [(ngModel)]="cmd.runAsRoot"></td>
+              <td><button class="btn-edit" (click)="addCommand(currentConfig.afterUpdateCommands,cmd)">Save</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p *ngIf="addMessage !== 'save' && currentConfig.afterUpdateCommands.length === 0" style="text-align: center;">No
+        Commands</p>
+      <div *ngIf="addMessage !== 'save'" [class.align-right]="currentConfig.afterUpdateCommands.length > 0"
+        [class.align-center]="addMessage !== 'save' && currentConfig.afterUpdateCommands.length === 0">
+        <button class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
+      </div>
 
-  <table class="table" *ngIf="currentConfig.applicationFiles.length > 0">
-    <tbody>
-      <tr>
-        <th class="half-width">File Path</th>
-        <th class="quarter-width">File</th>
-        <th class="quarter-width">Actions</th>
-      </tr>
-        <ng-container *ngFor="let file of currentConfig.applicationFiles; let i = index;">
-      <tr  *ngIf="!file.isEditMode">
-        <td class="half-width">{{file.path}}</td>
-        <td class="quarter-width">encoded</td>
-        <td class="quarter-width"><button class="btn-edit" (click)="file.isEditMode = true">Edit</button><button class="btn-delete" (click)="currentConfig.applicationFiles.splice(i,1)">Delete</button></td>
-      </tr>
+    </div>
 
-        <tr *ngIf="file.isEditMode">
-          <td class="half-width"><input id="file" type="text" class="full-width" name="filePath" [(ngModel)]="file.path" placeholder="add path.."></td>
-          <td class="quarter-width"><input type="file" (change)="onFileSelected($event,file.newValue)" /></td>
-          <td class="quarter-width"><button (click)="file.isEditMode = false" class="btn-edit">save</button></td>
-        </tr>
-       
-     </ng-container>
-    </tbody>
-  </table>
- 
-  <div *ngIf="addMessage === 'save'" class="fieldset">
-    <div class="title">Add New File</div>
-    <table class="full-width">
-      <tbody>
-        <tr>
-          <td><label for="file-path">File Path</label></td>
-          <td><label for="file">File</label></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><input id="command" type="text" class="full-width" name="filePath" [(ngModel)]="file.path" placeholder="add path.."></td>
-          <td><input type="file" (change)="onFileSelected($event,file.newValue)" /></td>
-          <td><button class="btn-edit" (click)="addFile(currentConfig.applicationFiles,file)">Save</button></td>
-        </tr>
-      </tbody>
-  </table>
-</div>
-<p *ngIf="addMessage !== 'save' && currentConfig.applicationFiles.length === 0" style="text-align: center;">No Files</p>
-<button *ngIf="addMessage !== 'save'"
-[class.align-center] = "addMessage !== 'save' && currentConfig.applicationFiles.length === 0"
-[class.align-right] = "currentConfig.applicationFiles.length > 0" class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
+    <!-- Application Files -->
+    <div *ngIf="currentWindow === 'application-file'" class="card-window">
 
-</div>
-</div>
-<button type="submit" class="btn btn-success" (click)="submit = true">submit</button>
+      <table class="table" *ngIf="currentConfig.applicationFiles.length > 0">
+        <tbody>
+          <tr>
+            <th class="half-width">File Path</th>
+            <th class="quarter-width">File</th>
+            <th class="quarter-width">Actions</th>
+          </tr>
+          <ng-container *ngFor="let file of currentConfig.applicationFiles; let i = index;">
+            <tr *ngIf="!file.isEditMode">
+              <td class="half-width">{{file.path}}</td>
+              <td class="quarter-width">encoded</td>
+              <td class="quarter-width"><button class="btn-edit" (click)="file.isEditMode = true">Edit</button><button
+                  class="btn-delete" (click)="currentConfig.applicationFiles.splice(i,1)">Delete</button></td>
+            </tr>
+
+            <tr *ngIf="file.isEditMode">
+              <td class="half-width"><input id="file" type="text" class="full-width" name="filePath"
+                  [(ngModel)]="file.path" placeholder="add path.."></td>
+              <td class="quarter-width"><input type="file" (change)="onFileSelected($event, file)" /></td>
+              <td class="quarter-width"><button (click)="file.isEditMode = false" class="btn-edit">save</button></td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+
+      <div *ngIf="addMessage === 'save'" class="fieldset">
+        <div class="title">Add New File</div>
+        <table class="full-width">
+          <tbody>
+            <tr>
+              <td><label for="file-path">File Path</label></td>
+              <td><label for="file">File</label></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input id="command" type="text" class="full-width" name="filePath" [(ngModel)]="file.path"
+                  placeholder="add path.."></td>
+              <td><input type="file" (change)="onFileSelected($event, null)" /></td>
+              <td><button class="btn-edit" (click)="addFile(currentConfig.applicationFiles,file)">Save</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p *ngIf="addMessage !== 'save' && currentConfig.applicationFiles.length === 0" style="text-align: center;">No
+        Files</p>
+      <div *ngIf="addMessage !== 'save'" [class.align-right]="currentConfig.applicationFiles.length > 0"
+        [class.align-center]="addMessage !== 'save' && currentConfig.applicationFiles.length === 0">
+        <button class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
+      </div>
+
+    </div>
+  </div>
 </form>

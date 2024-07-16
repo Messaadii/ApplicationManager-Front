@@ -1,13 +1,3 @@
-.card {
-    position: relative;
-    background-color: var(--background-color);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 5px 5px 20px 20px;
-    margin: 30px;
-    padding: 30px;
-    overflow: hidden;
-}
-
 .fieldset {
     position: relative;
     margin: 20px 0px;
@@ -22,12 +12,6 @@
     left: 20px;
     background-color: var(--background-color);
     padding: 0 5px;
-}
-
-label,
-input {
-    margin: 5px;
-    cursor: pointer;
 }
 
 input[type="radio"]:checked+.radio-section-option {
@@ -47,13 +31,6 @@ input[type="radio"]+.radio-section-option {
     padding: 5px;
     border: 1px solid var(--giants-orange-color);
     color: var(--oxford-bleu);
-}
-
-input {
-    border: 1px solid var(--oxford-bleu);
-    color: var(--oxford-bleu);
-    padding: 5px 10px;
-    border-radius: 5px;
 }
 
 input[type="radio"]+.radio-section-option:hover {
@@ -78,20 +55,18 @@ input[type="radio"]:checked+.radio-section-option:hover {
     width: fit-content;
 }
 
-.full-width {
-    width: 100%;
-}
-
-.full-width tr td {
-    padding: 0px 10px;
-}
-
 .card-nav-bar {
     top: 0px;
     left: 0px;
     background-color: #f2f3ae82;
     position: absolute;
     width: 100%;
+    height: 40px;
+}
+
+.card-nav-bar label{
+    margin-top: 7px;
+    padding-bottom: 5px;
 }
 
 .card-window {
@@ -181,19 +156,24 @@ input[type="radio"]:checked+.radio-section-option:hover {
 }
 
 .plus-btn {
+    position: relative;
     background-color: var(--giants-orange-color);
-    padding: 0px 10px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: none;
     color: white;
-    font-size: 2rem;
 }
 
-.align-right {
-    margin-left: 96%;
+.plus-btn fa-icon {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    font-size: 30px;
 }
 
 .align-center {
+    width: fit-content;
     margin-left: 50%;
     transform: translateX(-50%);
 }

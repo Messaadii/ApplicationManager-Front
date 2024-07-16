@@ -1,6 +1,5 @@
 
-<div class="container">
-  <h2>CRUD Virtual Machine</h2>
+<div class="card">
   
   <table class="table table-custom">
     <thead>
@@ -20,15 +19,16 @@
         <td>{{vm.host}}</td>
         <td>*****</td>
         <td>{{vm.port}}</td>
-        <td class="tddb">
-          <button (click)="updateVm(vm.name)" class="btn btn-primary">Update</button>
-          <button (click)="deleteVm(vm)" class="btn btn-danger">Delete</button>
-          <button (click)="loadCommands(vm.name)" class="btn btn-danger">view</button>
-
-          <button (click)="listActiveJavaProcesses(vm.name)" class="btn btn-primary">list Active Java Processes</button>
-
+        <td class="update-delete-section">
+          <button (click)="updateVm(vm.name)" class="btn-edit">Update</button>
+          <button (click)="deleteVm(vm)" class="btn-edit">Delete</button>
+          <button (click)="loadCommands(vm.name)" class="btn btn-danger">View</button>
+          <button (click)="listActiveJavaProcesses(vm.name)" class="btn btn-primary">List Active Java Processes</button>
         </td>
       </tr>
     </tbody>
   </table>
+  <div class="align-right">
+    <button (click)="addVm()" class="btn-edit">Add</button>
+  </div>
 </div>

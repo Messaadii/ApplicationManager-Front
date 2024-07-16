@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import * as fs from 'fs';
-import * as path from 'path';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Command } from '../../../model/Command';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ApplicationFile } from '../../../model/ApplicationFile';
+import { environment } from '../../../environments/environment';
 
 interface ConfigProperty {
   key: string;
@@ -30,10 +29,19 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
   editMessage: string = 'Edit';
   submit: boolean = false;
 
+  vms: string[] = [];
+
   setDeployOn(value: string) {
     this.currentConfig.toBeDeployed.type = value;
   }
 
+  setToBeDeployedVm(value: string) {
+    this.currentConfig.toBeDeployed.virtualMachine.name = value;
+  }
+
+  setDeployOnVm(value: string) {
+    this.currentConfig.deployOn.virtualMachine.name = value;
+  }
 
   setNavWindow(value: string) {
     this.currentWindow = value;
@@ -66,13 +74,13 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
 
   submitMessage: string = 'Create';
 
-  constructor(private http: HttpClient, private router: ActivatedRoute) { }
+  constructor(private http: HttpClient, private router: ActivatedRoute, private navRouter: Router) { }
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
       const aucName = params['name'] || "";
       if (aucName !== "") {
-        const apiUrl = 'http://localhost:8080/app-updater-config/get/' + aucName;
+        const apiUrl = `${environment.backendApp}/app-updater-config/get/` + aucName;
 
         this.http.get(apiUrl).subscribe((data: any) => {
           this.currentConfig = data;
@@ -81,55 +89,18 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
         this.isReadOnly = true;
       }
       this.submitMessage = this.isReadOnly ? "Update" : "Create";
-    });
-  }
 
-
-  // Method to get a file from path on local machine
-  readFileAsBase64(filePath: string, callback: (err: NodeJS.ErrnoException | null, base64?: string) => void): void {
-    const absolutePath = path.resolve(filePath);
-
-    fs.readFile(absolutePath, (err, data) => {
-      if (err) {
-        callback(err);
-      } else {
-        const base64 = data.toString('base64');
-        callback(null, base64);
-      }
+      this.http.get(`${environment.backendApp}/virtual-machine/getAll`).subscribe((vmdata: any) => {
+        this.vms = vmdata.map((vm: any) => vm.name);
+      });
     });
   }
 
   onSubmit(): void {
-    if (this.submit) {/*
-      const aucData = {
-        name: form.value.name,
-        beforeUpdateCommands: this.currentConfig.beforeUpdateCommands,
-        afterUpdateCommands: this.currentConfig.afterUpdateCommands,
-        applicationFiles: this.currentConfig.applicationFiles,
-        deployOn: {
-          type: "VirtualMachineResource",
-          earPath: form.value.deployOnEarPath,
-          tempPath: form.value.deployOnTempPath,
-          backupFolderPath: form.value.deployOnBackupFolderPath,
-          virtualMachine: {
-            name: form.value.deployOnVmName
-          }
-        },
-        toBeDeployed: {
-          type: form.value.ToBeDeployedType,
-          url: form.value.ToBeDeployedUrl,
-          earPath: form.value.ToBeDeployedEarPath,
-          regularExpression: form.value.ToBeDeployedRegularExpression,
-          virtualMachine: {
-            name: form.value.ToBeDeployedVmName
-          }
-        }
-
-      };*/
-
+    if (this.submit) {
       if (!this.isReadOnly) {
 
-        this.apiUrl = 'http://localhost:8080/app-updater-config/save';
+        this.apiUrl = `${environment.backendApp}/app-updater-config/save`;
 
         this.http.post(this.apiUrl, this.currentConfig).subscribe({
           next: (response) => {
@@ -147,7 +118,7 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
         });
 
       } else {
-        this.apiUrl = 'http://localhost:8080/app-updater-config/update';
+        this.apiUrl = `${environment.backendApp}/app-updater-config/update/` + this.currentConfig.name;
 
         this.http.put(this.apiUrl, this.currentConfig).subscribe({
           next: (response) => {
@@ -188,6 +159,7 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
           }
         });
       }
+      this.navRouter.navigate(['/app-updater-config/list']);
     }
   }
 
@@ -202,18 +174,21 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
 
   selectedFile: File | null = null;
 
-  onFileSelected(event: Event, base64String: string): void {
+  onFileSelected(event: Event, file:any): void {
+    console.log(this.currentConfig)
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-      this.encodeFileToBase64(this.selectedFile, base64String);
+      this.encodeFileToBase64(this.selectedFile, file === null ? this.file : file);
     }
+    console.log(this.currentConfig)
   }
 
-  encodeFileToBase64(file: File, base64String: string): void {
+  encodeFileToBase64(file: File, configFile:any): void {
     const reader = new FileReader();
     reader.onload = () => {
-      base64String = (reader.result as string).split(',')[1];
+      let base64String = (reader.result as string).split(',')[1];
+      configFile.newValue = base64String;
     };
     reader.onerror = (error) => {
       console.error('Error reading file:', error);
@@ -229,5 +204,4 @@ export class CreateUpdateAppUpdaterConfigComponent implements OnInit {
     this.file = { path: '', newValue: '', isEditMode: false };
     this.addMessage = 'Add';
   }
-
 }

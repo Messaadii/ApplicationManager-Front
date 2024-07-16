@@ -17,6 +17,9 @@ import { ViewModalComponent } from './components/app-updater-config/view-modal/v
 import { ListActiveJavaProcessesComponent } from './components/virtualMachine/list-active-java-processes/list-active-java-processes.component';
 import { CommandComponent } from './command/command.component';
 import { ListeofcommandComponent } from './components/virtualMachine/listeofcommand/listeofcommand.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UpdateResultHistoryComponent } from './components/app-updater-config/update-result-history/update-result-history.component';
 
 @NgModule({
 
@@ -31,6 +34,7 @@ import { ListeofcommandComponent } from './components/virtualMachine/listeofcomm
     ListActiveJavaProcessesComponent,
     CommandComponent,
     ListeofcommandComponent,
+    UpdateResultHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -40,14 +44,13 @@ import { ListeofcommandComponent } from './components/virtualMachine/listeofcomm
     IgxNavbarModule,
     IgxIconModule,
     FontAwesomeModule,
-  
-  
-    AppRoutingModule
-
+    AppRoutingModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

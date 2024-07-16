@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppUpdaterConfig } from '../../../model/AppUpdaterConfig';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-list-app-updater-config',
@@ -13,7 +14,7 @@ export class ListAppUpdaterConfigComponent implements OnInit {
   private apiUrl = "";
 
   isReadOnly = false;
-  result: any;
+  isLoading = false;
 
   appUpdaterConfigList: AppUpdaterConfig[] = [];
 
@@ -24,7 +25,7 @@ export class ListAppUpdaterConfigComponent implements OnInit {
   }
 
   initiateOnInit() {
-    this.http.get('http://localhost:8080/app-updater-config/getAll').subscribe((data: any) => {
+    this.http.get(`${environment.backendApp}/app-updater-config/getAll`).subscribe((data: any) => {
       this.appUpdaterConfigList = data;
     });
   }
@@ -34,7 +35,7 @@ export class ListAppUpdaterConfigComponent implements OnInit {
   }
 
   deleteConfig(name: string) {
-    this.apiUrl = 'http://localhost:8080/app-updater-config/delete/' + name;
+    this.apiUrl = `${environment.backendApp}/app-updater-config/delete/` + name;
 
     this.http.delete(this.apiUrl).subscribe({
       next: (response) => {
@@ -66,25 +67,28 @@ export class ListAppUpdaterConfigComponent implements OnInit {
     this.showModal = false;
   }
 
-  runConfig(name: string) {
-    this.apiUrl = 'http://localhost:8080/app-updater-config/deploy/' + name;
+  runConfig(appUpdaterConfig: any) {
+    this.isLoading = true;
+    this.apiUrl = `${environment.backendApp}/app-updater-config/deploy/` + appUpdaterConfig.name;
 
     this.http.get(this.apiUrl).subscribe({
       next: (response) => {
         console.log('app Updater Config run successfully', response);
-        this.result = response;
-        console.log(this.result);
-        console.log("befoooooooooooorrrrrrrrrrrrrreeeeee compleeeeeeeeettttttee");
+        appUpdaterConfig.result = response;
       },
       error: (error) => {
         console.error('Error running app Updater Config', error);
         // Handle error response
       },
       complete: () => {
-        console.log(this.result);
+        this.isLoading = false;
+        this.viewContent('Result', appUpdaterConfig.result);
       }
     });
   }
 
+  addConfig() {
+    this.router.navigate(['/app-updater-config/save']);
+  }
 
 }
