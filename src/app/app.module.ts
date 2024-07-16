@@ -14,12 +14,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ListAppUpdaterConfigComponent } from './components/app-updater-config/list-app-updater-config/list-app-updater-config.component';
 import { CreateUpdateAppUpdaterConfigComponent } from './components/app-updater-config/create-update-app-updater-config/create-update-app-updater-config.component';
 import { ViewModalComponent } from './components/app-updater-config/view-modal/view-modal.component';
+import { ListActiveJavaProcessesComponent } from './components/virtualMachine/list-active-java-processes/list-active-java-processes.component';
+import { CommandComponent } from './command/command.component';
+import { ListeofcommandComponent } from './components/virtualMachine/listeofcommand/listeofcommand.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UpdateResultHistoryComponent } from './components/app-updater-config/update-result-history/update-result-history.component';
 
-
 @NgModule({
+
   declarations: [
     AppComponent,
     ListVirtualMachineComponent,
@@ -28,6 +31,9 @@ import { UpdateResultHistoryComponent } from './components/app-updater-config/up
     ListAppUpdaterConfigComponent,
     CreateUpdateAppUpdaterConfigComponent,
     ViewModalComponent,
+    ListActiveJavaProcessesComponent,
+    CommandComponent,
+    ListeofcommandComponent,
     UpdateResultHistoryComponent
   ],
   imports: [
@@ -38,6 +44,7 @@ import { UpdateResultHistoryComponent } from './components/app-updater-config/up
     IgxNavbarModule,
     IgxIconModule,
     FontAwesomeModule,
+    AppRoutingModule,
     MatProgressSpinnerModule
   ],
   providers: [

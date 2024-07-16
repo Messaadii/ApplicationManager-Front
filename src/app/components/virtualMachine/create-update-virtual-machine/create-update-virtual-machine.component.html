@@ -76,3 +76,42 @@
     <button type="submit" class="btn-edit" [disabled]="vmForm.invalid">{{submitMessage}}</button>
   </form>
 </div>
+
+
+
+
+
+<div class="container">
+  <h2>Add Commands</h2>
+  <form (ngSubmit)="addCommand(cmd)" #commandForm="ngForm" class="command-form">
+    <div class="form-group">
+      <label for="command">Command</label>
+      <input
+        type="text"
+        id="command"
+        class="form-control"
+        required
+        [(ngModel)]="cmd.command"
+        name="command"
+        #commandInput="ngModel"
+      />
+      <div *ngIf="commandInput.invalid && (commandInput.dirty || commandInput.touched)" class="text-danger">
+        Command is required.
+      </div>
+    </div>
+
+    <div class="form-group form-check">
+      <input
+        type="checkbox"
+        id="runAsRoot"
+        class="form-check-input"
+        [(ngModel)]="cmd.runAsRoot"
+        name="runAsRoot"
+      />
+      <label for="runAsRoot" class="form-check-label">Run as Root</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="commandForm.invalid">{{ addMessage }}</button>
+  </form>
+
+  

@@ -1,0 +1,26 @@
+
+
+<div class="container">
+  <h2>List of Commands for Virtual Machine: {{ name }}</h2>
+  <table class="table table-custom">
+    <thead>
+      <tr>
+        <th>Command</th>
+        <th>Run as Root</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let command of vm.commands">
+        <td>{{ command.command }}</td>
+        <td>{{ command.runAsRoot ? 'Yes' : 'No' }}</td>
+        <td>
+          <button (click)="executeCommand(command)">Execute</button>
+        </td>
+      </tr>
+      <tr *ngIf="vm.commands.length === 0">
+        <td colspan="3">No commands yet.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
