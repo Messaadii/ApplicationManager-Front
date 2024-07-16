@@ -23,6 +23,10 @@
         <td class="tddb">
           <button (click)="updateVm(vm.name)" class="btn btn-primary">Update</button>
           <button (click)="deleteVm(vm)" class="btn btn-danger">Delete</button>
+          <button (click)="loadCommands(vm.name)" class="btn btn-danger">view</button>
+
+          <button (click)="listActiveJavaProcesses(vm.name)" class="btn btn-primary">list Active Java Processes</button>
+
         </td>
       </tr>
     </tbody>

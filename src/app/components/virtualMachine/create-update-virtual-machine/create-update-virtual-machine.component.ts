@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VirtualMachine } from '../../../model/virtualMachine';
 import { ActivatedRoute } from '@angular/router';
+import { Command } from '../../../model/Command';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { VmserviceService } from '../../../services/vmservice.service';
 
 @Component({
   selector: 'app-create-update-virtual-machine',
@@ -14,10 +17,18 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
   vmName = "";
   isReadOnly = false;
   submitMessage = "";
+  cmd: Command = { command: '', runAsRoot: false, isEditMode: false };
+  addMessage: string = 'Add';
 
-  currentVM: VirtualMachine = { name: "", user: "", host: "", password: "", port: 0 }
+  currentVM: VirtualMachine = { name: "", 
+    user: "", 
+    host: "", 
+    password: "", 
+    port: 0,
+    commands: []
+  }
 
-  constructor(private http: HttpClient, private router: ActivatedRoute) { }
+  constructor(private http: HttpClient, private router: ActivatedRoute, private apiservive:VmserviceService) { }
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -37,19 +48,11 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
 
   onSubmit(form: any): void {
     if (form.valid) {
-      const vmData = {
-        name: form.value.name,
-        user: form.value.user,
-        host: form.value.host,
-        password: form.value.password,
-        port: form.value.port
-      };
-
       if (!this.isReadOnly) {
 
         this.apiUrl = 'http://localhost:8080/virtual-machine/save';
 
-        this.http.post(this.apiUrl, vmData).subscribe({
+        this.http.post(this.apiUrl, this.currentVM).subscribe({
           next: (response) => {
             console.log('Virtual machine created successfully', response);
             // Handle successful response
@@ -66,7 +69,7 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
       } else {
         this.apiUrl = 'http://localhost:8080/virtual-machine/update';
 
-        this.http.put(this.apiUrl, vmData).subscribe({
+        this.http.put(this.apiUrl, this.currentVM).subscribe({
           next: (response) => {
             console.log('Virtual machine updated successfully', response);
             // Handle successful response
@@ -78,11 +81,38 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
           complete: () => {
             console.log('Request completed');
             this.isReadOnly = false;
-            this.currentVM = { name: "", user: "", host: "", password: "", port: 0 };
+            this.currentVM = { name: "", user: "", host: "", password: "", port: 0 , commands: []};
           }
         });
       }
     }
+  }
+ 
+
+
+  addCommand(command: Command): void {
+      console.log('Command added:', this.cmd);
+    let tempcmd = { command: command.command, runAsRoot: command.runAsRoot, isEditMode: false };
+    if (tempcmd.command !== '') {
+      this.currentVM.commands.push(tempcmd);
+    }
+    this.cmd = { command: '', runAsRoot: false, isEditMode: false };
+    this.addMessage = 'Add';
+    console.log(this.currentVM);
+
+  }
+  
+
+
+  saveVirtualMachine(): void {
+    this.apiservive.saveVirtualMachine(this.currentVM).subscribe(
+      (response: any) => {
+        console.log('VirtualMachine saved successfully:', response);
+      },
+      (error: any) => {
+        console.error('Error saving VirtualMachine:', error);
+      }
+    );
   }
 
 }

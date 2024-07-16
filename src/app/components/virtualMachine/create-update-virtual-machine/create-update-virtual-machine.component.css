@@ -7,3 +7,25 @@
     padding: 30px;
     overflow: hidden;
 }
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .command-form {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .text-danger {
+    color: red;
+    font-size: 0.875em;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+  

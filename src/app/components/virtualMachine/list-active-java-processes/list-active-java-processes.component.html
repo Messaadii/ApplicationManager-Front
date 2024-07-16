@@ -1,0 +1,46 @@
+<div class="table-container">
+  <h2 class="table-title">List-active-java-processes</h2>
+  <div *ngIf="activeProcesses && activeProcesses.length > 0; else noProcesses">
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>PID</th>
+          <th>%CPU</th>
+          <th>%MEM</th>
+          <th>VSZ</th>
+          <th>RSS</th>
+          <th>TTY</th>
+          <th>STAT</th>
+          <th>START</th>
+          <th>TIME</th>
+          <th>Command</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let process of activeProcesses">
+          <tr>
+            <!-- Loop through columns 1 to 10 -->
+            <ng-container *ngFor="let column of splitProcess(process).slice(0, 10)">
+              <td>{{ column }}</td>
+            </ng-container>
+
+            <!-- Display columns 11 onwards without splitting -->
+            <td colspan="100">{{ splitProcess(process).slice(10).join(' ') }}</td>
+
+            <!-- Action column with button -->
+            <td>
+              <div>
+                <button (click)="killProcessVM(process)">Kill Process</button>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noProcesses>
+    <p>No active Java processes found.</p>
+  </ng-template>
+</div>

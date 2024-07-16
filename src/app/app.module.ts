@@ -14,8 +14,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ListAppUpdaterConfigComponent } from './components/app-updater-config/list-app-updater-config/list-app-updater-config.component';
 import { CreateUpdateAppUpdaterConfigComponent } from './components/app-updater-config/create-update-app-updater-config/create-update-app-updater-config.component';
 import { ViewModalComponent } from './components/app-updater-config/view-modal/view-modal.component';
+import { ListActiveJavaProcessesComponent } from './components/virtualMachine/list-active-java-processes/list-active-java-processes.component';
+import { CommandComponent } from './command/command.component';
+import { ListeofcommandComponent } from './components/virtualMachine/listeofcommand/listeofcommand.component';
 
 @NgModule({
+
   declarations: [
     AppComponent,
     ListVirtualMachineComponent,
@@ -23,7 +27,10 @@ import { ViewModalComponent } from './components/app-updater-config/view-modal/v
     NavBarComponent,
     ListAppUpdaterConfigComponent,
     CreateUpdateAppUpdaterConfigComponent,
-    ViewModalComponent
+    ViewModalComponent,
+    ListActiveJavaProcessesComponent,
+    CommandComponent,
+    ListeofcommandComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,11 @@ import { ViewModalComponent } from './components/app-updater-config/view-modal/v
     BrowserAnimationsModule,
     IgxNavbarModule,
     IgxIconModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+  
+  
+    AppRoutingModule
+
   ],
   providers: [
     provideClientHydration(),

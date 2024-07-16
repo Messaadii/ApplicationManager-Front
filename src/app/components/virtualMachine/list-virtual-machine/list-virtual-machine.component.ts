@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VirtualMachine } from '../../../model/virtualMachine';
 import { Router } from '@angular/router';
+import { VmserviceService } from '../../../services/vmservice.service';
+import { Command } from '../../../model/Command';
 
 @Component({
   selector: 'app-list-virtual-machine',
@@ -14,11 +16,13 @@ export class ListVirtualMachineComponent implements OnInit {
   private apiUrl = "";
 
   isReadOnly = false;
-  currentVM: VirtualMachine = { name: "", user: "", host: "", password: "", port: 0 }
 
   vms: VirtualMachine[] = [];
+  name: any;
+  commands: Command[] | undefined;
+  route: any;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router,private apiService:VmserviceService) { }
 
   ngOnInit(): void {
     this.initiateOnInit();
@@ -53,5 +57,12 @@ export class ListVirtualMachineComponent implements OnInit {
   updateVm(name: string) {
     this.router.navigate(['/virtualMachine/update', name]);
   }
+  listActiveJavaProcesses(name: string) {
+    this.router.navigate(['/virtualMachine/list-active-java-processes', name]);
+  }
+  loadCommands(name: string){
+    this.router.navigate(['/virtualMachine/commands', name]);
 
+  }
+  
 }
