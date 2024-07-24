@@ -15,7 +15,7 @@
         <td>{{ command.command }}</td>
         <td>{{ command.runAsRoot ? 'Yes' : 'No' }}</td>
         <td>
-          <button (click)="executeCommand(command)">Execute</button>
+          <button (click)="executeCommand(command.id)">Execute</button>
         </td>
       </tr>
       <tr *ngIf="vm.commands.length === 0">

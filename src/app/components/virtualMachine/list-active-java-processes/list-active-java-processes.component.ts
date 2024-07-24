@@ -16,6 +16,8 @@ export class ListActiveJavaProcessesComponent implements OnInit {
   pathParameter: any;
   name: any;
   processId: any;
+  threadDumpResult: string | null = null;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -81,4 +83,24 @@ getPidFromProcess(process: string): string {
       }
     );
   }
-}  
+  executeThreadDump(process:string){
+    this.processId = this.getPidFromProcess(process);
+    console.log('Process ID:', this.processId); // Verify if processId is correctly set
+
+    
+    console.log(`Name: ${this.name}, Process ID: ${this.processId} `); // Chec
+      this.apiService.executeThreadDump(this.name, this.processId).subscribe(
+        (response: any) => {
+          console.log('Thread dump executed successfully:', response);
+          this.threadDumpResult = response;
+          // Optionally show success message to user
+        },
+        (error: any) => {
+          console.error('Error executing thread dump:', error);
+          // Handle error, e.g., show error message to user
+        }
+      );
+     
+  
+  }
+}

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Command } from '../../../model/Command';
 import { ActivatedRoute } from '@angular/router';
-import { VmserviceService } from '../../../services/vmservice.service';
+import { VmserviceService } from '../../services/vmservice.service';
+import { Command } from '../../model/Command';
+import { pid } from 'process';
+import { PipelineDestinationPromiseFunction } from 'stream';
 
 @Component({
   selector: 'app-listeofcommand',
@@ -11,6 +13,13 @@ import { VmserviceService } from '../../../services/vmservice.service';
 export class ListeofcommandComponent {
   name: any | null;
   vm: { commands: Command[] } = { commands: [] };
+  command: Command = {
+    command: '',
+    runAsRoot: false,
+    isEditMode: false,
+
+
+  }; // As
 
 
   constructor(
@@ -47,18 +56,22 @@ export class ListeofcommandComponent {
       );
     }
   }
-  
-  executeCommand(command: Command) {
-    this.apiService.executeCommand(this.name,command).subscribe(
-      (response) => {
+
+  executeCommand(id: any) {
+    this.apiService.executeCommand(this.name, id).subscribe(
+
+      (response: any) => {
+        console.log(this.name);
+
         console.log('Command executed successfully:', response);
         // Optionally show success message to user
       },
-      (error) => {
+      (error: any) => {
         console.error('Error executing command:', error);
         // Handle error, e.g., show error message to user
       }
     );
   }
-}
 
+
+}

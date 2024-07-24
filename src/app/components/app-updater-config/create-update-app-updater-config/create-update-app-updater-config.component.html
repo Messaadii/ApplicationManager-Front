@@ -272,7 +272,7 @@
             <tr>
               <td><input id="command" type="text" class="full-width" name="filePath" [(ngModel)]="file.path"
                   placeholder="add path.."></td>
-              <td><input type="file" (change)="onFileSelected($event, null)" /></td>
+              <td><input type="file" (change)="onFileSelected($event,'')" /></td>
               <td><button class="btn-edit" (click)="addFile(currentConfig.applicationFiles,file)">Save</button></td>
             </tr>
           </tbody>

@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { pid } from 'process';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Command } from '../model/Command';
 import { VirtualMachine } from '../model/virtualMachine';
@@ -40,12 +39,15 @@ findByName(name: string) {
   return this.http.get<any>(`${this.apiUrl}/Findbyname/${name}`);
 }
 
-executeCommand(name: any, command: Command): Observable<any> {
-  return this.http.post<any>(`${this.apiUrl}/execute/${name}`, command);
+executeCommand(name: string, id: any): Observable<any> {
+    return this.http.post<string>(`http://localhost:8080/virtual-machine/execute/${id}`, {},{ responseType: 'text' as 'json' });
 }
 saveVirtualMachine(virtualMachine: VirtualMachine): Observable<VirtualMachine> {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   return this.http.post<VirtualMachine>(this.apiUrl, virtualMachine, { headers: headers });
+}
+executeThreadDump(name: string, pid: string): Observable<any> {
+  return this.http.post<string>(`http://localhost:8080/virtual-machine/thread-dump/${name}/${pid}`, {},{ responseType: 'text' as 'json' });
 }
 }
 

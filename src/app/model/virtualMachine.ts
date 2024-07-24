@@ -7,4 +7,5 @@ export interface VirtualMachine {
     password: string;
     port: number;
     commands: Command [];
+
 }

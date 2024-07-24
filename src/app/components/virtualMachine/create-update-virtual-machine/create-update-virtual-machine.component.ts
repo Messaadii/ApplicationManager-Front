@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Command } from '../../../model/Command';
 import { VmserviceService } from '../../../services/vmservice.service';
 import { environment } from '../../../environments/environment';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-create-update-virtual-machine',
@@ -17,18 +19,28 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
   vmName = "";
   isReadOnly = false;
   submitMessage = "";
-  cmd: Command = { command: '', runAsRoot: false, isEditMode: false };
+  cmd: Command = {
+    command: '', runAsRoot: false, isEditMode: false, 
+    
+   
+  };
   addMessage: string = 'Add';
+  currentWindow: string = 'main-config';
+  faPlus = faPlus;
 
-  currentVM: VirtualMachine = { name: "", 
-    user: "", 
-    host: "", 
-    password: "", 
+
+
+  currentVM: VirtualMachine = {
+    name: "",
+    user: "",
+    host: "",
+    password: "",
     port: 0,
-    commands: []
+    commands: [],
   }
+  updateVMForm!: FormGroup;
 
-  constructor(private http: HttpClient, private router: ActivatedRoute, private apiservive:VmserviceService) { }
+  constructor(private http: HttpClient, private router: ActivatedRoute, private apiservive: VmserviceService) { }
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -39,6 +51,8 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
 
       this.http.get(this.apiUrl).subscribe((data: any) => {
         this.currentVM = data;
+        this.isReadOnly = false;
+
       });
 
       this.isReadOnly = true;
@@ -67,10 +81,12 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
         });
 
       } else {
+        if (this.updateVMForm.valid && this.currentVM) {
+          const updatedVM = this.updateVMForm.value;
         this.apiUrl = `${environment.backendApp}/virtual-machine/update`;
 
-        this.http.put(this.apiUrl, this.currentVM).subscribe({
-          next: (response) => {
+        this.http.put(this.apiUrl,this.currentVM).subscribe({
+          next: (response) =>{
             console.log('Virtual machine updated successfully', response);
             // Handle successful response
           },
@@ -81,27 +97,32 @@ export class CreateUpdateVirtualMachineComponent implements OnInit {
           complete: () => {
             console.log('Request completed');
             this.isReadOnly = false;
-            this.currentVM = { name: "", user: "", host: "", password: "", port: 0 , commands: []};
+            this.currentVM = { name: "", user: "", host: "", password: "", port: 0, commands: [] };
+
           }
         });
       }
     }
   }
- 
+  }
 
 
   addCommand(command: Command): void {
-      console.log('Command added:', this.cmd);
-    let tempcmd = { command: command.command, runAsRoot: command.runAsRoot, isEditMode: false };
+    let tempcmd = { command: command.command, runAsRoot: command.runAsRoot, isEditMode: false , processId: function (arg0: string, processId: any): unknown {
+      throw new Error('Function not implemented.');
+    }};
     if (tempcmd.command !== '') {
       this.currentVM.commands.push(tempcmd);
     }
-    this.cmd = { command: '', runAsRoot: false, isEditMode: false };
+    this.cmd = { command: '', runAsRoot: false, isEditMode: false , 
+    };
     this.addMessage = 'Add';
-    console.log(this.currentVM);
-
   }
-  
+
+  setNavWindow(value: string) {
+    this.currentWindow = value;
+  }
+
 
 
   saveVirtualMachine(): void {

@@ -5,8 +5,8 @@ import { CreateUpdateVirtualMachineComponent } from './components/virtualMachine
 import { ListAppUpdaterConfigComponent } from './components/app-updater-config/list-app-updater-config/list-app-updater-config.component';
 import { CreateUpdateAppUpdaterConfigComponent } from './components/app-updater-config/create-update-app-updater-config/create-update-app-updater-config.component';
 import { ListActiveJavaProcessesComponent } from './components/virtualMachine/list-active-java-processes/list-active-java-processes.component';
-import { ListeofcommandComponent } from './components/virtualMachine/listeofcommand/listeofcommand.component';
 import { UpdateResultHistoryComponent } from './components/app-updater-config/update-result-history/update-result-history.component';
+import { ListeofcommandComponent } from './components/listeofcommand/listeofcommand.component';
 
 const routes: Routes = [
   { path: 'virtualMachine/save', component: CreateUpdateVirtualMachineComponent },

@@ -16,10 +16,10 @@ import { CreateUpdateAppUpdaterConfigComponent } from './components/app-updater-
 import { ViewModalComponent } from './components/app-updater-config/view-modal/view-modal.component';
 import { ListActiveJavaProcessesComponent } from './components/virtualMachine/list-active-java-processes/list-active-java-processes.component';
 import { CommandComponent } from './command/command.component';
-import { ListeofcommandComponent } from './components/virtualMachine/listeofcommand/listeofcommand.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UpdateResultHistoryComponent } from './components/app-updater-config/update-result-history/update-result-history.component';
+import { ListeofcommandComponent } from './components/listeofcommand/listeofcommand.component';
 
 @NgModule({
 
@@ -44,7 +44,6 @@ import { UpdateResultHistoryComponent } from './components/app-updater-config/up
     IgxNavbarModule,
     IgxIconModule,
     FontAwesomeModule,
-    AppRoutingModule,
     MatProgressSpinnerModule
   ],
   providers: [

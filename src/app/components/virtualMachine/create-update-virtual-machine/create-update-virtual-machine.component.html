@@ -1,4 +1,4 @@
-<div class="card">
+<!--<div class="card">
   <form (ngSubmit)="onSubmit(vmForm)" #vmForm="ngForm">
     <table>
       <tbody>
@@ -72,8 +72,8 @@
         </tr>
       </tbody>
     </table>
-    <!-- Submit Button -->
-    <button type="submit" class="btn-edit" [disabled]="vmForm.invalid">{{submitMessage}}</button>
+     Submit Button -->
+<!--<button type="submit" class="btn-edit" [disabled]="vmForm.invalid">{{submitMessage}}</button>
   </form>
 </div>
 
@@ -113,5 +113,95 @@
 
     <button type="submit" class="btn btn-primary" [disabled]="commandForm.invalid">{{ addMessage }}</button>
   </form>
+-->
+<form (ngSubmit)="onSubmit(vmForm)" #vmForm="ngForm">
+  <div class="card">
+    <div class="card-nav-bar">
+      <input id="main-config" type="radio" class="nav-bar-input" name="updater-config" checked>
+      <label for="main-config" class="left-rounded-config nav-bar-option" (click)="setNavWindow('main-config')">Main
+        Config</label>
+      <input id="before-update-cmd" type="radio" class="nav-bar-input" name="updater-config">
+      <label for="before-update-cmd" class="nav-bar-option" (click)="setNavWindow('before-update-cmd')">Add Commands
+      </label>
+    </div>
+    <div *ngIf="currentWindow ==='main-config'" class="card-window">
+      <label for="name">Name</label><br>
+      <input type="text" class="full-width" id="name" name="name" [readonly]="isReadOnly" [(ngModel)]="currentVM.name"
+        required #name="ngModel">
 
-  
+
+
+      <label for="name">User</label><br>
+      <input type="text" class="full-width" id="user" name="user" [readonly]="isReadOnly" [(ngModel)]="currentVM.user"
+        required #user="ngModel">
+
+
+      <label for="name">Host</label><br>
+      <input type="text" class="full-width" id="host" name="host" [readonly]="isReadOnly" [(ngModel)]="currentVM.host"
+        required #host="ngModel">
+
+      <label for="name">Password</label><br>
+      <input type="text" class="full-width" id="password" name="password" [readonly]="isReadOnly"
+        [(ngModel)]="currentVM.password" required #password="ngModel">
+
+      <label for="name">Port</label><br>
+      <input type="text" class="full-width" id="port" name="port" [readonly]="isReadOnly" [(ngModel)]="currentVM.port"
+        required #port="ngModel">
+      <button type="submit" class="btn-edit" [disabled]="vmForm.invalid">{{submitMessage}}</button>
+    </div>
+    <div *ngIf="currentWindow === 'before-update-cmd'" class="card-window">
+      <table class="table" *ngIf="currentVM.commands.length > 0">
+        <tbody>
+          <tr>
+            <th class="half-width">Command</th>
+            <th class="quarter-width">runAsRoot</th>
+            <th class="quarter-width">Actions</th>
+          </tr>
+          <ng-container *ngFor="let bucmd of currentVM.commands; let i = index;">
+            <tr *ngIf="!bucmd.isEditMode">
+              <td class="half-width">{{bucmd.command}}</td>
+              <td class="quarter-width">{{bucmd.runAsRoot}}</td>
+              <td class="quarter-width"><button class="btn-edit" (click)="bucmd.isEditMode = true">Edit</button><button
+                  class="btn-delete" (click)="currentVM.commands.splice(i,1)">Delete</button></td>
+            </tr>
+
+            <tr *ngIf="bucmd.isEditMode">
+              <td class="half-width"><input id="command" type="text" class="full-width" name="bucmdCommand"
+                  [(ngModel)]="bucmd.command" placeholder="add new command.."></td>
+              <td class="quarter-width"><input id="sudo" type="checkbox" name="bucmdRunAsRoot"
+                  [(ngModel)]="bucmd.runAsRoot"></td>
+              <td class="quarter-width"><button (click)="bucmd.isEditMode = false" class="btn-edit">save</button></td>
+            </tr>
+
+          </ng-container>
+        </tbody>
+      </table>
+
+      <div *ngIf="addMessage === 'save'" class="fieldset">
+        <div class="title">Add New Command</div>
+        <table class="full-width">
+          <tbody>
+            <tr>
+              <td><label for="command">Command</label></td>
+              <td><label for="sudo">runAsRoot</label></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input id="command" type="text" class="full-width" name="bucmdCommand" [(ngModel)]="cmd.command"
+                  placeholder="add new command.."></td>
+              <td><input id="sudo" type="checkbox" name="bucmdRunAsRoot" [(ngModel)]="cmd.runAsRoot"></td>
+              <td><button class="btn-edit" (click)="addCommand(cmd)">Save</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p *ngIf="addMessage !== 'save' && currentVM.commands.length === 0" style="text-align: center;">No
+        Commands</p>
+      <div *ngIf="addMessage !== 'save'" [class.align-right]="currentVM.commands.length > 0"
+        [class.align-center]="addMessage !== 'save' && currentVM.commands.length === 0">
+        <button class="plus-btn" (click)="addMessage = 'save'"><fa-icon [icon]="faPlus"></fa-icon></button>
+      </div>
+    </div>
+  </div>
+</form>
