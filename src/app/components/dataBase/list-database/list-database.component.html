@@ -1,0 +1,39 @@
+<div class="card">
+  <table class="table table-custom">
+    <thead>
+      
+      <tr>
+        <th>Alias</th>
+        <th>Host</th>
+        <th>Name</th>
+        <th>Password</th>
+        <th>Port</th>
+        <th>Type</th>
+        <th>User</th>
+        <th>Actions</th> <!-- Ajouter une colonne pour les actions -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let db of databases">
+        <td>{{ db.alias }}</td>
+        <td>{{ db.host }}</td>
+        <td>{{ db.name }}</td>
+        <td>{{ db.password }}</td>
+        <td>{{ db.port }}</td>
+        <td>{{ db.type }}</td>
+        <td>{{ db.user }}</td>
+        <td>
+          <!-- Boutons pour les actions -->
+          <button (click)="editDatabase(db.alias)" class="btn-edit">edit</button>
+          <button (click)="deleteDatabase(db.alias)" class="btn-edit">delete</button>
+         
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="align-right">
+    <!-- Bouton pour ajouter une nouvelle base de données -->
+    <button (click)="addDatabase()" class="btn-edit">add</button>
+    <button (click)="onExecuteScript()" class="btn-edit">Execute Script</button>
+  </div>
+</div>

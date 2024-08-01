@@ -1,7 +1,7 @@
 {
   "version": "13.3.1",
   "project": {
-    "defaultPort": 4200,
+    "defaultPort": 4201,
     "framework": "angular",
     "projectType": "igx-ts",
     "projectTemplate": "ng-cli",

@@ -7,6 +7,10 @@ import { CreateUpdateAppUpdaterConfigComponent } from './components/app-updater-
 import { ListActiveJavaProcessesComponent } from './components/virtualMachine/list-active-java-processes/list-active-java-processes.component';
 import { ListeofcommandComponent } from './components/virtualMachine/listeofcommand/listeofcommand.component';
 import { UpdateResultHistoryComponent } from './components/app-updater-config/update-result-history/update-result-history.component';
+import { ListDatabaseComponent } from './components/dataBase/list-database/list-database.component';
+import { CreateUpdateDatabaseComponent } from './components/dataBase/create-update-database/create-update-database.component';
+import { ExecuteScriptComponent } from './components/execute-script/execute-script.component';
+
 
 const routes: Routes = [
   { path: 'virtualMachine/save', component: CreateUpdateVirtualMachineComponent },
@@ -21,7 +25,13 @@ const routes: Routes = [
   { path: 'app-updater-config/delete', component: ListAppUpdaterConfigComponent },
   { path: 'app-updater-config/list', component: ListAppUpdaterConfigComponent },
   { path: 'app-updater-config/update-result-history', component: UpdateResultHistoryComponent },
-  { path: '', component: ListAppUpdaterConfigComponent }
+  { path: 'database/create', component: CreateUpdateDatabaseComponent },
+  { path: 'database/update/:alias', component: CreateUpdateDatabaseComponent },
+  { path: 'app-updater-config/update-result-history', component: UpdateResultHistoryComponent },
+  { path: 'databases', component: ListDatabaseComponent },
+  { path: '', redirectTo: '/databases', pathMatch: 'full' },
+  { path: 'execute-script', component: ExecuteScriptComponent },
+  { path: '**', redirectTo: '/databases' } // Route de secours
 ];
 
 

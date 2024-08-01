@@ -1,0 +1,179 @@
+.fieldset {
+  position: relative;
+  margin: 20px 0px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid var(--oxford-bleu);
+}
+
+.fieldset .title {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background-color: var(--background-color);
+  padding: 0 5px;
+}
+
+input[type="radio"]:checked+.radio-section-option {
+  color: white;
+  background-color: var(--giants-orange-color);
+  outline: var(--giants-orange-color);
+}
+
+input[type="radio"] {
+  display: none;
+  margin: 0px;
+}
+
+input[type="radio"]+.radio-section-option {
+  font-weight: bold;
+  margin: 0px;
+  padding: 5px;
+  border: 1px solid var(--giants-orange-color);
+  color: var(--oxford-bleu);
+}
+
+input[type="radio"]+.radio-section-option:hover {
+  background-color: var(--vanilla-color)
+}
+
+
+input[type="radio"]:checked+.radio-section-option:hover {
+  background-color: var(--giants-orange-color) !important;
+}
+
+.left-rounded {
+  border-radius: 5px 0px 0px 5px;
+}
+
+.right-rounded {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.center {
+  margin: auto;
+  width: fit-content;
+}
+
+.card-nav-bar {
+  top: 0px;
+  left: 0px;
+  background-color: #f2f3ae82;
+  position: absolute;
+  width: 100%;
+  height: 40px;
+}
+
+.card-nav-bar label{
+  margin-top: 7px;
+  padding-bottom: 5px;
+}
+
+.card-window {
+  margin-top: 20px;
+}
+
+.left-rounded-config {
+  border-radius: 20px 0px 0px 0px;
+}
+
+.nav-bar-option {
+  padding: 0px 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.nav-bar-input:checked+.nav-bar-option {
+  border-bottom: 4px solid var(--giants-orange-color);
+  margin: 0px;
+}
+
+.add-btn {
+  background-color: var(--giants-orange-color);
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  right: 90px;
+  border-color: rgb(82, 79, 79);
+  bottom: 15px;
+  width: 100px;
+  font-weight: bold;
+}
+
+.add-btn:hover {
+  background-color: var(--giants-orange-color);
+  color: white;
+  font-weight: bold;
+}
+
+.half-width {
+  width: 60%;
+}
+
+.quarter-width {
+  width: 20%;
+}
+
+.btn-edit {
+  background-color: var(--vanilla-color);
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  right: 20px;
+  border-color: rgb(82, 79, 79);
+  bottom: 15px;
+  width: 100px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.btn-edit:hover {
+  background-color: var(--giants-orange-color);
+  color: white;
+  font-weight: bold;
+}
+
+.btn-delete {
+  background-color: var(--vanilla-color);
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  right: 130px;
+  border-color: rgb(82, 79, 79);
+  bottom: 15px;
+  width: 100px;
+  font-weight: bold;
+}
+
+.btn-delete:hover {
+  background-color: var(--giants-orange-color);
+  color: white;
+  font-weight: bold;
+}
+
+.plus-btn {
+  position: relative;
+  background-color: var(--giants-orange-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+}
+
+.plus-btn fa-icon {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  font-size: 30px;
+}
+
+.align-center {
+  width: fit-content;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { HttpClientModule , withFetch } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,11 @@ import { ListeofcommandComponent } from './components/virtualMachine/listeofcomm
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UpdateResultHistoryComponent } from './components/app-updater-config/update-result-history/update-result-history.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ListDatabaseComponent } from './components/dataBase/list-database/list-database.component';
+import { CreateUpdateDatabaseComponent } from './components/dataBase/create-update-database/create-update-database.component';
+import { ExecuteScriptComponent } from './components/execute-script/execute-script.component';
+
 
 @NgModule({
 
@@ -34,8 +40,14 @@ import { UpdateResultHistoryComponent } from './components/app-updater-config/up
     ListActiveJavaProcessesComponent,
     CommandComponent,
     ListeofcommandComponent,
-    UpdateResultHistoryComponent
-  ],
+    UpdateResultHistoryComponent,
+    CreateUpdateDatabaseComponent,
+    ListDatabaseComponent,
+    AppComponent,
+    CreateUpdateDatabaseComponent,
+    ListDatabaseComponent,
+    ExecuteScriptComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -45,12 +57,17 @@ import { UpdateResultHistoryComponent } from './components/app-updater-config/up
     IgxIconModule,
     FontAwesomeModule,
     AppRoutingModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule ,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withInterceptorsFromDi()),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient(withFetch())
+
   ],
   bootstrap: [AppComponent]
 })
